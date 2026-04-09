@@ -7,13 +7,24 @@ body{
     height:100vh;
 }
 
-.container{
+.container-n{
     border-radius: 15px;
     background-color: skyblue;
     width: 300px;
+    /* updated code */
+    height: 400px;
     box-shadow: 4px 5px 6px;
+    display: flex;
+    flex-direction: column;
 }
 
+.container{
+    padding-bottom: 5px;
+}
+.task-container{
+    overflow: auto;  /* input scroll*/
+    flex: 1;        /*remaining space lega */
+}
 .header{
     text-align: center;
     padding: 10px;

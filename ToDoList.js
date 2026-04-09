@@ -1,22 +1,51 @@
-function AddTask(){
-    const newTask = document.createElement('li')
-    const taskList = document.getElementById("TaskList")
 
-    newTask.textContent = document.getElementById('inputType').value
+document.addEventListener("DOMContentLoaded", function(){
 
-    taskList.appendChild(newTask)
+    const input = document.getElementById("inputType");
+    const taskList = document.getElementById("TaskList");
 
-    document.getElementById('inputType').value = ""
+    // Add Task Function
+    window.AddTask = function(){
+        const taskText = input.value.trim();
 
-    deleteTask(newTask);
-}
+        if(taskText === ""){
+            alert("Please enter a task");
+            return;
+        }
 
-function deleteTask(newTask){
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = "delete"
-    newTask.appendChild(deleteBtn);
+        const newTask = document.createElement("li");
 
-    deleteBtn.onclick = function (){
-        newTask.remove()
-    }
-}
+        const textSpan = document.createElement("span");
+        textSpan.textContent = taskText;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+
+        // delete
+        deleteBtn.onclick = function(){
+            newTask.remove();
+        };
+
+        // complete task
+        textSpan.onclick = function(){
+            textSpan.style.textDecoration =
+                textSpan.style.textDecoration === "line-through"
+                ? "none"
+                : "line-through";
+        };
+
+        newTask.appendChild(textSpan);
+        newTask.appendChild(deleteBtn);
+        taskList.appendChild(newTask);
+         taskList.insertBefore(newTask, taskList.firstChild);
+        input.value = "";
+    };
+
+    // Enter key support
+    input.addEventListener("keypress", function(e){
+        if(e.key === "Enter"){
+            AddTask();
+        }
+    });
+
+});
